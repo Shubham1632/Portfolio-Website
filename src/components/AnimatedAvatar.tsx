@@ -8,7 +8,7 @@ const AnimatedAvatar = () => {
       <div className="relative w-full h-full border-2 border-black bg-white overflow-hidden group-hover:-translate-x-2 group-hover:-translate-y-2 transition-transform duration-300">
         <div className="w-full h-full animate-[float_6s_ease-in-out_infinite] bg-black/5">
           <img
-            src="/placeholder.svg"
+            src="/profile_photo.jpg"
             alt="Shubham Gangurde"
             className="w-full h-full object-cover object-center"
             loading="eager"

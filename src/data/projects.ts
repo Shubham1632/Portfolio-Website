@@ -71,15 +71,6 @@ export const PROJECTS: Project[] = [
     githubUrl: 'https://github.com/Shubham1632/Verde-Block',
   },
   {
-    title: 'Blockchain SSO',
-    tagline: 'Decentralized authentication with blockchain',
-    description:
-      'Demonstrated single sign-on using blockchain as a decentralized authentication system without storing user data on a centralized server. Built entirely with Hardhat around an SSO smart contract containing the required authentication functions, with deployment and supporting scripts plus hardhat-gas-reporter already configured.',
-    tags: ['Hardhat', 'Solidity', 'Smart Contracts', 'SSO', 'Gas Reporter'],
-    categories: ['blockchain'],
-    githubUrl: 'https://github.com/Shubham1632/Blockchain_SSO',
-  },
-  {
     title: 'SedutoSi',
     tagline: 'Centralized cinema booking mobile app',
     description:
