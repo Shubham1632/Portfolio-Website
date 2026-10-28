@@ -68,26 +68,28 @@ const Finale = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 w-full mb-24">
-          {SOCIAL_LINKS.map((link) => {
-            const Icon = ICON_MAP[link.id];
-            if (!Icon) return null;
-            return (
-              <a
-                key={link.id}
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={link.label}
-                className="group flex flex-col items-center justify-center p-8 border-2 border-black bg-white hover:bg-black transition-all duration-300 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] rounded-none"
-              >
-                <Icon className="w-8 h-8 group-hover:text-white transition-colors duration-300" />
-                <span className="mt-4 font-mono text-xs uppercase tracking-widest font-black group-hover:text-white">
-                  {link.label}
-                </span>
-              </a>
-            );
-          })}
+        <div className="w-full max-w-3xl mx-auto mb-12">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 justify-items-center">
+            {SOCIAL_LINKS.map((link) => {
+              const Icon = ICON_MAP[link.id];
+              if (!Icon) return null;
+              return (
+                <a
+                  key={link.id}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={link.label}
+                  className="group flex w-full max-w-[220px] flex-col items-center justify-center p-8 border-2 border-black bg-white hover:bg-black transition-all duration-300 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] rounded-none"
+                >
+                  <Icon className="w-8 h-8 group-hover:text-white transition-colors duration-300" />
+                  <span className="mt-4 font-mono text-xs uppercase tracking-widest font-black group-hover:text-white">
+                    {link.label}
+                  </span>
+                </a>
+              );
+            })}
+          </div>
         </div>
 
         <div className="flex flex-col md:flex-row items-center gap-4 text-center">
@@ -100,7 +102,7 @@ const Finale = () => {
       {/* Extreme Bottom Bar */}
       <div
         id="footer-divider"
-        className="w-full bg-white pt-10 pb-24 md:pb-10 px-6 mt-auto border-t border-black/10 relative"
+        className="w-full bg-white pt-6 pb-10 md:pb-8 px-6 mt-auto border-t border-black/10 relative"
       >
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8 md:gap-4 opacity-70">
           <p className="text-[10px] md:text-[11px] font-mono text-black uppercase tracking-[0.1em] md:tracking-[0.2em] text-center md:text-left">
