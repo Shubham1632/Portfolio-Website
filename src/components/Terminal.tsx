@@ -1,20 +1,20 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { PROFILE, getSocialLink } from '@/data/constants';
+import { useIsMobile } from '@/hooks/use-mobile';
 import {
-  X,
-  Terminal as TerminalIcon,
-  Maximize2,
-  Minimize2,
-} from 'lucide-react';
-import {
-  playTerminalOpen,
-  playTerminalClose,
+  playClick,
+  playError,
   playKeyTick,
   playSuccess,
-  playError,
-  playClick,
+  playTerminalClose,
+  playTerminalOpen,
 } from '@/hooks/useSoundEffects';
-import { useIsMobile } from '@/hooks/use-mobile';
-import { PROFILE, SOCIAL_LINKS, getSocialLink } from '@/data/constants';
+import {
+  Maximize2,
+  Minimize2,
+  Terminal as TerminalIcon,
+  X,
+} from 'lucide-react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 interface CommandOutput {
   id: number;
@@ -544,7 +544,7 @@ const Terminal = () => {
               aria-label="Minimize"
             />
             <span className="ml-2 text-white/60 text-xs">
-              guest@vara-portfolio:~
+              guest@Shubham-portfolio:~
             </span>
           </div>
           <div className="flex items-center gap-3 text-white/40">
