@@ -1,26 +1,25 @@
-import { useEffect, useRef, useState } from 'react';
-import { motion, useScroll, useTransform, type Variants } from 'framer-motion';
-import { playClick, playHover } from '@/hooks/useSoundEffects';
-import { useScrambleText } from '@/hooks/useScrambleText';
-import {
-  Github,
-  Linkedin,
-  Mail,
-  ChevronDown,
-  InstagramIcon,
-  BookOpen,
-  Download,
-  Eye,
-  Twitter,
-} from 'lucide-react';
-import Magnetic from './Magnetic';
 import { PROFILE, SOCIAL_LINKS } from '@/data/constants';
-import { PROJECT_COUNT } from '@/data/projects';
-import { gsap } from '@/lib/gsap';
 import { useGSAPContext } from '@/hooks/useGSAPContext';
 import { useMatrixRain } from '@/hooks/useMatrixRain';
 import { useParticleAssembly } from '@/hooks/useParticleAssembly';
+import { useScrambleText } from '@/hooks/useScrambleText';
+import { playClick, playHover } from '@/hooks/useSoundEffects';
 import { useTypewriter } from '@/hooks/useTypewriter';
+import { gsap } from '@/lib/gsap';
+import { motion, useScroll, useTransform, type Variants } from 'framer-motion';
+import {
+  BookOpen,
+  ChevronDown,
+  Download,
+  Eye,
+  Github,
+  InstagramIcon,
+  Linkedin,
+  Mail,
+  Twitter,
+} from 'lucide-react';
+import { useRef, useState } from 'react';
+import Magnetic from './Magnetic';
 import ResumeModal from './ResumeModal';
 
 const roles = [
@@ -338,8 +337,8 @@ const HeroSection = () => {
       {/* Bottom-right stats */}
       <div className="gsap-corner absolute bottom-10 right-6 md:right-10 z-10 hidden md:block">
         <div className="font-mono text-xs text-foreground text-right leading-relaxed font-medium">
-          <p>const experience = "—";</p>
-          <p>const projects = {PROJECT_COUNT};</p>
+          <p>const experience = "2+ years";</p>
+          <p>const projects = 12+;</p>
           <p>const passion = Infinity;</p>
         </div>
       </div>

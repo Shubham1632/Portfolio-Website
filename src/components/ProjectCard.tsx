@@ -1,6 +1,5 @@
-import { useState, useRef, useCallback, useEffect } from 'react';
-import { Github, ExternalLink, ArrowUpRight, Code2 } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useRef, useEffect } from 'react';
+import { Github, ExternalLink } from 'lucide-react';
 import { Badge } from './ui/badge';
 import { playClick, playHover } from '@/hooks/useSoundEffects';
 import { gsap } from '@/lib/gsap';
@@ -23,16 +22,7 @@ interface ProjectCardProps {
   index: number;
 }
 
-type HoverZone = 'left' | 'right' | null;
-
-interface CursorPos {
-  x: number;
-  y: number;
-}
-
 export const ProjectCard = ({ project, index }: ProjectCardProps) => {
-  const [hoverZone, setHoverZone] = useState<HoverZone>(null);
-  const [cursorPos, setCursorPos] = useState<CursorPos>({ x: 0, y: 0 });
   const [isMobile, setIsMobile] = useState(() =>
     typeof window !== 'undefined' ? window.innerWidth < 640 : false,
   );
@@ -66,46 +56,11 @@ export const ProjectCard = ({ project, index }: ProjectCardProps) => {
     [],
   );
 
-  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const midpoint = rect.width / 2;
-    const newZone: HoverZone = x < midpoint ? 'left' : 'right';
-
-    setCursorPos({ x, y });
-    setHoverZone((prev) => (prev !== newZone ? newZone : prev));
-  }, []);
-
-  const handleMouseLeave = useCallback(() => {
-    setHoverZone(null);
-  }, []);
-
-  const hasLive = Boolean(project.liveUrl);
-
-  const handleZoneClick = (zone: HoverZone) => {
-    if (!zone) return;
-    playClick();
-    if (zone === 'left') {
-      window.open(project.githubUrl, '_blank', 'noopener,noreferrer');
-    } else if (zone === 'right' && project.liveUrl) {
-      window.open(project.liveUrl, '_blank', 'noopener,noreferrer');
-    }
-  };
-
-  // Determine badge config based on zone
-  const isSource = hoverZone === 'left' || (hoverZone === 'right' && !hasLive);
-  const isLive = hoverZone === 'right' && hasLive;
-
   return (
     <div
       ref={cardRef}
       className="project-card-wrapper w-full h-full relative"
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
       onMouseEnter={playHover}
-      style={{ cursor: hoverZone ? 'none' : 'default' }}
     >
       <div
         className={[
@@ -114,7 +69,6 @@ export const ProjectCard = ({ project, index }: ProjectCardProps) => {
           'hover:-translate-x-2 hover:-translate-y-2 active:translate-x-1 active:translate-y-1 active:!shadow-none',
           'bg-white rounded-none min-h-[420px] md:min-h-[480px]',
         ].join(' ')}
-        onClick={() => handleZoneClick(hoverZone)}
       >
         {/* Parallax Background Number Container */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
@@ -125,57 +79,6 @@ export const ProjectCard = ({ project, index }: ProjectCardProps) => {
 
         {/* CRT pixel scanline overlay */}
         <div aria-hidden="true" className="pixel-scanline-overlay z-0" />
-
-        {/* ── Subtle half-zone tint (very faint, doesn't cover content) ── */}
-        <div
-          aria-hidden="true"
-          className="zone-half-tint z-0"
-          style={{
-            background:
-              hoverZone === 'left'
-                ? 'linear-gradient(to right, rgba(0,0,0,0.04) 0%, transparent 100%)'
-                : hoverZone === 'right'
-                  ? 'linear-gradient(to left, rgba(10,10,30,0.06) 0%, transparent 100%)'
-                  : 'transparent',
-            transition: 'background 0.3s ease',
-          }}
-        />
-
-        {/* ── Cursor-following badge ── */}
-        <AnimatePresence>
-          {hoverZone && (
-            <motion.div
-              key={hoverZone}
-              aria-hidden="true"
-              className={`cursor-zone-badge ${isSource ? 'badge-source' : 'badge-live'}`}
-              initial={{ opacity: 0, scale: 0.7 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.7 }}
-              transition={{ duration: 0.15, ease: 'easeOut' as const }}
-              style={{
-                left: cursorPos.x,
-                top: cursorPos.y,
-              }}
-            >
-              {isSource ? (
-                <>
-                  <Github className="badge-icon" strokeWidth={1.8} />
-                  <span className="badge-label">Source Code</span>
-                </>
-              ) : (
-                <>
-                  <ArrowUpRight className="badge-icon" strokeWidth={1.8} />
-                  <span className="badge-label">Live Demo</span>
-                </>
-              )}
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        {/* ── Zone split indicator lines (very subtle) ── */}
-        {hoverZone && (
-          <div aria-hidden="true" className="zone-split-line z-0" />
-        )}
 
         {/* ── "Latest Work" or Custom badge ── */}
         {(project.badge || project.isNew) && (
@@ -235,8 +138,8 @@ export const ProjectCard = ({ project, index }: ProjectCardProps) => {
           </div>
         </div>
 
-        {/* ── Mobile / Touch: fallback buttons ── */}
-        <div className="mobile-action-buttons mt-auto flex gap-3 relative z-10">
+        {/* ── Project actions ── */}
+        <div className="project-action-buttons mt-auto flex gap-3 relative z-10">
           <a
             href={project.githubUrl}
             target="_blank"
@@ -246,10 +149,10 @@ export const ProjectCard = ({ project, index }: ProjectCardProps) => {
               playClick();
             }}
             aria-label={`View ${project.title} source code on GitHub`}
-            className="mobile-card-btn border-black bg-white text-foreground hover:bg-black hover:text-white active:scale-95"
+            className="project-card-btn border-black bg-white text-foreground hover:bg-black hover:text-white active:scale-95"
           >
             <Github className="w-4 h-4 flex-shrink-0" />
-            <span>Source</span>
+            <span>GitHub Repo</span>
           </a>
           {project.liveUrl && (
             <a
@@ -261,7 +164,7 @@ export const ProjectCard = ({ project, index }: ProjectCardProps) => {
                 playClick();
               }}
               aria-label={`View ${project.title} live demo`}
-              className="mobile-card-btn border-black bg-black text-white hover:bg-white hover:text-black active:scale-95"
+              className="project-card-btn border-black bg-black text-white hover:bg-white hover:text-black active:scale-95"
             >
               <ExternalLink className="w-4 h-4 flex-shrink-0" />
               <span>Live Demo</span>

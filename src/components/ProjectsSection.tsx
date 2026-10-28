@@ -1,18 +1,19 @@
-import { useState, useRef } from 'react';
-import { Github } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
-import SectionBlock from './SectionBlock';
-import ProjectCard from './ProjectCard';
-import { playHover, playClick } from '@/hooks/useSoundEffects';
 import { PROJECTS, type FilterKey } from '@/data/projects';
+import { playClick, playHover } from '@/hooks/useSoundEffects';
+import { AnimatePresence, motion } from 'framer-motion';
+import { Github } from 'lucide-react';
+import { useRef, useState } from 'react';
+import ProjectCard from './ProjectCard';
+import SectionBlock from './SectionBlock';
 
 // ─── Filter definitions ───────────────────────────────────────────────────────
 const FILTERS: { key: FilterKey; label: string }[] = [
   { key: 'all', label: 'All' },
-  { key: 'ai', label: 'AI' },
   { key: 'web', label: 'Web' },
   { key: 'browser', label: 'Browser' },
   { key: 'blockchain', label: 'Blockchain' },
+  { key: 'android', label: 'Android' },
+  { key: 'ios', label: 'iOS' },
 ];
 
 // ─── Card enter/exit variants ─────────────────────────────────────────────────

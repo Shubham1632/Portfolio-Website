@@ -1,6 +1,12 @@
 // Single source of truth for project data.
 
-export type FilterKey = 'all' | 'web' | 'browser' | 'blockchain';
+export type FilterKey =
+  | 'all'
+  | 'web'
+  | 'browser'
+  | 'blockchain'
+  | 'android'
+  | 'ios';
 
 export interface Project {
   title: string;
@@ -54,6 +60,24 @@ export const PROJECTS: Project[] = [
     githubUrl: 'https://github.com/Shubham1632/FeedPrice',
     liveUrl:
       'https://chrome.google.com/webstore/detail/pricefeed/aohcnddhbappclckfieileicclbpadnk',
+  },
+  {
+    title: 'VerdeBlock',
+    tagline: 'Blockchain real estate platform POC',
+    description:
+      'Developed a proof of concept for a blockchain-based real estate platform. The idea was selected for TEF Ignition, exploring how decentralized technology could improve transparency and access in real estate.',
+    tags: ['Blockchain', 'Real Estate', 'POC'],
+    categories: ['blockchain'],
+    githubUrl: 'https://github.com/Shubham1632/Verde-Block',
+  },
+  {
+    title: 'SedutoSi',
+    tagline: 'Centralized cinema booking mobile app',
+    description:
+      'Built a cross-platform mobile application for Android and iOS as part of a project at Politecnico di Milano. SedutoSi brings Milan’s fragmented cinema booking market into one centralized experience, making it easier for users to discover screenings and book tickets.',
+    tags: ['React Native', 'Expo', 'NativeWind', 'TypeScript'],
+    categories: ['android', 'ios'],
+    githubUrl: 'https://github.com/Shubham1632/SedutoSi',
   },
 ];
 
